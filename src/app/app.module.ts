@@ -6,6 +6,7 @@ import { MaterialModule } from '@angular/material';
 import { WebBluetoothModule } from '@manekinekko/angular-web-bluetooth';
 
 import { NgBeaconService } from './ng-beacon.service';
+import { BluetoothUtilsService } from './bluetooth-utils.service';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -19,7 +20,7 @@ import { AppComponent } from './app.component';
     WebBluetoothModule.forRoot(),
     MaterialModule.forRoot()
   ],
-  providers: [NgBeaconService],
+  providers: [NgBeaconService, BluetoothUtilsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

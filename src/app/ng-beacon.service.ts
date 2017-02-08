@@ -64,6 +64,11 @@ export class NgBeaconService {
     return result;
   }
 
+  sendProgram(code: string) {
+    console.log('writing program', code);
+    return this.sendText(`\nE.setBootCode(${JSON.stringify(code)}, true)\nload()\n`);
+  }
+
   private connectRxTx(primaryService: BluetoothRemoteGATTService) {
     return Observable.zip(
       // RX
