@@ -1,3 +1,15 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  ng-beacon configuration utility
+</md-toolbar>
+
+<div *ngIf="!connected">
+  <button md-raised-button (click)="connect()" [disabled]="connecting">Connect</button>
+</div>
+
+<div *ngIf="connected">
+  Connected!
+
+  <p>
+    {{beaconInfo}}
+  </p>
+</div>

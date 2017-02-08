@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
+import { WebBluetoothModule } from '@manekinekko/angular-web-bluetooth';
 
+import { NgBeaconService } from './ng-beacon.service';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -12,9 +15,11 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    WebBluetoothModule.forRoot(),
+    MaterialModule.forRoot()
   ],
-  providers: [],
+  providers: [NgBeaconService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
