@@ -4,37 +4,44 @@
 
 <md-card *ngIf="!connected">
   <md-card-title>Connect</md-card-title>
-  <button md-raised-button (click)="connect()" [disabled]="connecting">Connect to ng-eacon</button>
+  <button md-raised-button (click)="connect()" [disabled]="connecting">
+    <md-icon>bluetooth_searching</md-icon> Connect to ng-beacon
+  </button>
 </md-card>
 
 <div *ngIf="connected">
   <md-card>
-    <md-card-title>Connected</md-card-title>
+    <md-card-title><md-icon>done</md-icon> Connected</md-card-title>
   
-    <p>Version: {{beaconVersion}}</p>
-    <p>Serial: {{beaconSerialNum}}</p>
+    <md-card-content>
+      <p>Version: {{beaconVersion}}</p>
+      <p>Serial: {{beaconSerialNum}}</p>
+    </md-card-content>
   </md-card>
 
   <md-card>
-    <md-card-title>Beacon Configuration</md-card-title>
+    <md-card-title>Configure Beacon</md-card-title>
 
-    <div>
-      <md-input-container>
-        <input md-input placeholder="Beacon name" [(ngModel)]="beaconName" maxlength="10" />
-      </md-input-container>
-    </div>
+    <md-card-content>
+      <div>
+        <md-input-container>
+          <input md-input placeholder="Beacon name" [(ngModel)]="beaconName" maxlength="10" />
+        </md-input-container>
+      </div>
 
-    <button md-button (click)="uploadEddystone()">Eddystone Beacon</button>
-    <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
-    <button md-button (click)="uploadIBeacon()">iBeacon</button>
+      <button md-button (click)="uploadEddystone()">Eddystone Beacon</button>
+      <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
+      <button md-button (click)="uploadIBeacon()">iBeacon</button>
+    </md-card-content>
   </md-card>
-
 
   <md-card>
     <md-card-title>Debug Log</md-card-title>
-    <div>
-      <button md-button (click)="clearLog()">Clear</button>
+    <md-card-content>
       <pre>{{debugLog}}</pre>
-    </div>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button (click)="clearLog()"><md-icon>delete</md-icon></button>
+    </md-card-actions>
   </md-card>
 </div>
