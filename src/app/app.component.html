@@ -2,18 +2,39 @@
   ng-beacon configuration utility
 </md-toolbar>
 
-<div *ngIf="!connected">
-  <button md-raised-button (click)="connect()" [disabled]="connecting">Connect</button>
-</div>
+<md-card *ngIf="!connected">
+  <md-card-title>Connect</md-card-title>
+  <button md-raised-button (click)="connect()" [disabled]="connecting">Connect to ng-eacon</button>
+</md-card>
 
 <div *ngIf="connected">
-  Connected!
+  <md-card>
+    <md-card-title>Connected</md-card-title>
+  
+    <p>Version: {{beaconVersion}}</p>
+    <p>Serial: {{beaconSerialNum}}</p>
+  </md-card>
 
-  <p>
-    {{beaconInfo}}
-  </p>
+  <md-card>
+    <md-card-title>Beacon Configuration</md-card-title>
 
-  <button md-button (click)="uploadEddystone()">Eddystone Beacon</button>
-  <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
-  <button md-button (click)="uploadIBeacon()">iBeacon</button>
+    <div>
+      <md-input-container>
+        <input md-input placeholder="Beacon name" [(ngModel)]="beaconName" maxlength="10" />
+      </md-input-container>
+    </div>
+
+    <button md-button (click)="uploadEddystone()">Eddystone Beacon</button>
+    <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
+    <button md-button (click)="uploadIBeacon()">iBeacon</button>
+  </md-card>
+
+
+  <md-card>
+    <md-card-title>Debug Log</md-card-title>
+    <div>
+      <button md-button (click)="clearLog()">Clear</button>
+      <pre>{{debugLog}}</pre>
+    </div>
+  </md-card>
 </div>
