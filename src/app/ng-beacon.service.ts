@@ -18,8 +18,12 @@ export class NgBeaconService {
     return this.uart.connect();
   }
 
-  sendProgram(code: string) {
-    return this.uart.sendText(`\nE.setBootCode(${JSON.stringify(code)}, true)\nload()\n`);
+  sendProgram(payload: string, reset = false) {
+    let code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
+    if (reset) {
+      code += "\nreset()\n";
+    }
+    return this.uart.sendText(code);
   }
 
   uploadEddystone(params: BeaconParams) {
@@ -76,7 +80,7 @@ export class NgBeaconService {
       }
     ]);
 
-    this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});${temperatureFirmware};tempSensor();`)
+    this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});${temperatureFirmware};tempSensor();`, true);
   }
 
   uploadIBeacon(params: BeaconParams) {
