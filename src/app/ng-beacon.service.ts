@@ -18,11 +18,8 @@ export class NgBeaconService {
     return this.uart.connect();
   }
 
-  sendProgram(payload: string, reset = false) {
+  sendProgram(payload: string) {
     let code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
-    if (reset) {
-      code += "\nreset()\n";
-    }
     return this.uart.sendText(code);
   }
 
@@ -80,7 +77,8 @@ export class NgBeaconService {
       }
     ]);
 
-    this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});${temperatureFirmware};tempSensor();`, true);
+    // this.uart.sendText(`\nNRF.setAdvertising(${JSON.stringify(advertiseData)},${JSON.stringify(advertiseParams)});\n`);
+    this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)},${JSON.stringify(advertiseParams)});\n${temperatureFirmware};`);
   }
 
   uploadIBeacon(params: BeaconParams) {

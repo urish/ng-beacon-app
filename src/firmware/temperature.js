@@ -1,4 +1,4 @@
-function tempSensor() {
+function onInit() {
     function updateValues() {
         var tdata = new Int16Array([ngbeacon.temperature() * 100]);
         var hdata = new Uint16Array([ngbeacon.humidity() * 100]);

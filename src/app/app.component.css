@@ -6,3 +6,7 @@ md-toolbar a,
 md-toolbar a:visited {
     color: white;
 }
+
+md-card {
+    margin-top: 10px;
+}

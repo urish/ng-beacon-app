@@ -44,6 +44,10 @@ export class AppComponent {
     this.debugLog = '';
   }
 
+  reset() {
+    this.ngBeacon.uart.sendText("\nreset()\n");
+  }
+
   uploadEddystone() {
     this.ngBeacon.uploadEddystone({name: this.beaconName});
   }
