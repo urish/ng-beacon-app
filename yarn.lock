@@ -65,9 +65,9 @@
   dependencies:
     tsickle "^0.2"
 
-"@manekinekko/angular-web-bluetooth@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.1.1.tgz#2ec707515e65afd743489217a95c6100aba814f0"
+"@manekinekko/angular-web-bluetooth@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.1.2.tgz#08794a0fdf3628dcc4084cdae6799cff49f9aca8"
   dependencies:
     "@angular/common" "^2.4.1"
     "@angular/compiler" "^2.4.1"
@@ -75,9 +75,9 @@
     "@angular/platform-browser" "^2.4.1"
     core-js "2.4.1"
     rimraf "^2.5.4"
-    rxjs "5.0.2"
-    typescript "2.0.10"
-    zone.js "0.7.4"
+    rxjs "^5.0.2"
+    typescript "^2.0.10"
+    zone.js "^0.7.4"
 
 "@ngtools/json-schema@^1.0.0":
   version "1.0.2"
@@ -4227,13 +4227,7 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
-rxjs@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.2.tgz#cc6513756daa93cab4085c1b5a19a3e28fb6c6bf"
-  dependencies:
-    symbol-observable "^1.0.1"
-
-rxjs@^5.0.1:
+rxjs@^5.0.1, rxjs@^5.0.2:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
   dependencies:
@@ -4870,7 +4864,7 @@ type-is@~1.6.14:
     media-typer "0.3.0"
     mime-types "~2.1.13"
 
-typescript@2.0.10, typescript@~2.0.3:
+typescript@^2.0.10, typescript@~2.0.3:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.10.tgz#ccdd4ed86fd5550a407101a0814012e1b3fac3dd"
 
@@ -5348,10 +5342,6 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-zone.js@0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.7.4.tgz#0e624fe5b724450ee433495deff15c02b3908ee0"
-
-zone.js@^0.7.2:
+zone.js@^0.7.2, zone.js@^0.7.4:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.7.6.tgz#fbbc39d3e0261d0986f1ba06306eb3aeb0d22009"
