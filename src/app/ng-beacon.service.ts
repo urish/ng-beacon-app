@@ -44,7 +44,7 @@ export class NgBeaconService {
           0x10, // frame type: URL
           0xf8, // Power
           0x03, // https://
-          'ibeacon.io'
+          'ngbeacon.io'
         ]
       }
     ]);
