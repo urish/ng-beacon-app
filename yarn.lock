@@ -65,9 +65,9 @@
   dependencies:
     tsickle "^0.2"
 
-"@manekinekko/angular-web-bluetooth@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.1.2.tgz#08794a0fdf3628dcc4084cdae6799cff49f9aca8"
+"@manekinekko/angular-web-bluetooth@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.2.0.tgz#4953002253f367d1ecc378700f1627bb947c80dd"
   dependencies:
     "@angular/common" "^2.4.1"
     "@angular/compiler" "^2.4.1"

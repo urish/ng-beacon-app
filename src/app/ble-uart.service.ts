@@ -28,6 +28,7 @@ export class BleUartService {
   receive$: Observable<string>;
   lines$: Observable<string>;
   writable$: Observable<boolean>;
+  gatt: BluetoothRemoteGATTServer;
 
   private rxCharacteristic: BluetoothRemoteGATTCharacteristic;
   private writableSubject = new BehaviorSubject<boolean>(false);
@@ -39,12 +40,17 @@ export class BleUartService {
   connect() {
     return this.ble
       .discover$({ filters: [{services: [BleUartService.UART_SERVICE]}] })
-      .mergeMap((gatt: BluetoothRemoteGATTServer) => {
+      .mergeMap(gatt => {
+        this.gatt = gatt;
         return this.ble.getPrimaryService$(gatt, BleUartService.UART_SERVICE);
       })
       .mergeMap((primaryService: BluetoothRemoteGATTService) => {
         return this.connectRxTx(primaryService);
       });
+  }
+
+  disconnect() {
+    this.gatt.disconnect();
   }
 
   sendText(text: string) {

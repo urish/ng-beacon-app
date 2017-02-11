@@ -18,16 +18,22 @@ export class NgBeaconService {
     return this.uart.connect();
   }
 
+  disconnect() {
+    this.uart.disconnect();
+  }
+
   sendProgram(payload: string) {
     let code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
     return this.uart.sendText(code);
   }
 
-  uploadEddystone(params: BeaconParams) {
+  uploadEddystone(params: BeaconParams, url: string) {
     const advertiseParams = {
       name: params.name,
       interval: 250
     }
+
+    url = url.replace(/^https?:\/\//i, '')
 
     const advertiseData = this.bluetoothUtils.encodeAdvPacket([
       {
@@ -41,7 +47,7 @@ export class NgBeaconService {
           0x10, // frame type: URL
           0xf8, // Power
           0x03, // https://
-          'ngbeacon.io'
+          url
         ]
       }
     ]);

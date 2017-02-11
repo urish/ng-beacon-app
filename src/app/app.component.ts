@@ -15,6 +15,7 @@ export class AppComponent {
   beaconVersion = '';
   beaconSerialNum = '';
   beaconName = 'ng-beacon';
+  beaconUrl = 'ngbeacon.io';
   debugLog = '';
 
   constructor(private ngBeacon: NgBeaconService, private bluetoothUtils: BluetoothUtilsService) {}
@@ -40,6 +41,12 @@ export class AppComponent {
       });
   }
 
+  disconnect() {
+    this.ngBeacon.disconnect();
+    this.clearLog();
+    this.connected = false;
+  }
+
   clearLog() {
     this.debugLog = '';
   }
@@ -49,7 +56,7 @@ export class AppComponent {
   }
 
   uploadEddystone() {
-    this.ngBeacon.uploadEddystone({name: this.beaconName});
+    this.ngBeacon.uploadEddystone({name: this.beaconName}, this.beaconUrl);
   }
 
   uploadTemperature() {
