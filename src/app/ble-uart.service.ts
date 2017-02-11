@@ -71,8 +71,9 @@ export class BleUartService {
   }
 
   private connectRxTx(primaryService: BluetoothRemoteGATTService) {
-    this.receive$ = this.ble.getCharacteristic$(primaryService, BleUartService.UART_TX)
-      .mergeMap(characteristic => this.ble.observeValue$(characteristic))
+    const txChar = this.ble.getCharacteristic$(primaryService, BleUartService.UART_TX).share();
+ 
+    this.receive$ = txChar.mergeMap(characteristic => this.ble.observeValue$(characteristic))
       .map(value => String.fromCharCode.apply(null, new Uint8Array(value.buffer)) as string);
 
     let chars = this.receive$.concatMap(chunk => chunk.split(''));
@@ -88,7 +89,7 @@ export class BleUartService {
         }),
 
       // TX
-      this.receive$
+      txChar
     ).do(([rx, tx]) => {
       this.writableSubject.next(true);
     });
