@@ -58,7 +58,7 @@ export class BleUartService {
         this.writableSubject.next(false);
         return this.ble.writeValue$(this.rxCharacteristic, chunk)
       })
-      .map(() => this.writableSubject.next(true))
+      .map(() => setTimeout(() => this.writableSubject.next(true), 10))
       .publish();
     result.connect();
     return result;
