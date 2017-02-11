@@ -39,7 +39,7 @@ export class BleUartService {
 
   connect() {
     return this.ble
-      .discover$({ filters: [{services: [BleUartService.UART_SERVICE]}] })
+      .discover$({ filters: [{ services: [BleUartService.UART_SERVICE] }] })
       .mergeMap(gatt => {
         this.gatt = gatt;
         return this.ble.getPrimaryService$(gatt, BleUartService.UART_SERVICE);
@@ -71,25 +71,25 @@ export class BleUartService {
   }
 
   private connectRxTx(primaryService: BluetoothRemoteGATTService) {
+    this.receive$ = this.ble.getCharacteristic$(primaryService, BleUartService.UART_TX)
+      .mergeMap(characteristic => this.ble.observeValue$(characteristic))
+      .map(value => String.fromCharCode.apply(null, new Uint8Array(value.buffer)) as string);
+
+    let chars = this.receive$.concatMap(chunk => chunk.split(''));
+    this.lines$ = chars.scan((acc, curr) => acc[acc.length - 1] === '\n' ? curr : acc + curr)
+      .filter(item => item.indexOf('\n') >= 0)
+
     return Observable.zip(
       // RX
       this.ble
         .getCharacteristic$(primaryService, BleUartService.UART_RX)
-        .map((characteristic: BluetoothRemoteGATTCharacteristic) => { 
-            this.rxCharacteristic = characteristic;
-          }),
+        .map((characteristic: BluetoothRemoteGATTCharacteristic) => {
+          this.rxCharacteristic = characteristic;
+        }),
 
       // TX
-      this.ble.getCharacteristic$(primaryService, BleUartService.UART_TX)
-        .map((characteristic: BluetoothRemoteGATTCharacteristic) => {
-          this.receive$ = this.ble
-            .streamValues$()
-            .map(value => String.fromCharCode.apply(null, new Uint8Array(value.buffer)) as string);
-          var chars = this.receive$.concatMap(chunk => chunk.split(''));
-          this.lines$ = chars.scan((acc, curr) => acc[acc.length-1] === '\n' ? curr : acc + curr)
-            .filter(item => item.indexOf('\n') >= 0);
-        })
-    ).do(() => {
+      this.receive$
+    ).do(([rx, tx]) => {
       this.writableSubject.next(true);
     });
   }
