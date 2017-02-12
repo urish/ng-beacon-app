@@ -66,4 +66,8 @@ export class AppComponent {
   uploadIBeacon() {
     this.ngBeacon.uploadIBeacon({name: this.beaconName});
   }
+
+  readTemperature() {
+    this.ngBeacon.uart.sendText(`ngbeacon.temperature()\n ngbeacon.humidity()\n`);
+  }
 }
