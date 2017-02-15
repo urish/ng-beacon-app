@@ -15,9 +15,13 @@
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/@angular-cli/base-href-webpack/-/base-href-webpack-1.0.16.tgz#4296a2ff7db84ddc2e67c2a107e276f72463ff8d"
 
-"@angular/common@^2.3.1", "@angular/common@^2.4.1":
+"@angular/common@^2.3.1":
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.6.tgz#f005528f75d0a6deaaf636f3b779f26bda4adb07"
+
+"@angular/common@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.7.tgz#9316daf90e353e67187d2e0afec5521c2001bd4b"
 
 "@angular/compiler-cli@^2.3.1":
   version "2.4.6"
@@ -27,13 +31,21 @@
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
-"@angular/compiler@^2.3.1", "@angular/compiler@^2.4.1":
+"@angular/compiler@^2.3.1":
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.6.tgz#17236b858f5730eed257d93e90bcbae45e21e0fe"
 
-"@angular/core@^2.3.1", "@angular/core@^2.4.1":
+"@angular/compiler@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.7.tgz#008c1f0d1409c46fbba215fe8ab0d886252c7ff0"
+
+"@angular/core@^2.3.1":
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.6.tgz#4abec78ee035b27e8192acf70409c3dbca24e829"
+
+"@angular/core@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.7.tgz#8bed9a2d37e81342bd41d189df88aa3e02393cfb"
 
 "@angular/forms@^2.3.1":
   version "2.4.6"
@@ -51,9 +63,13 @@
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.6.tgz#d50d8b66f7fa00c0449f33c2c1b5348b67c9fcda"
 
-"@angular/platform-browser@^2.3.1", "@angular/platform-browser@^2.4.1":
+"@angular/platform-browser@^2.3.1":
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.6.tgz#ded44169d4a870d5ee40e95496d34e9ab03c2c3a"
+
+"@angular/platform-browser@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.7.tgz#19f7996a70f07b34ce8d6d0e255544e62cae75f1"
 
 "@angular/router@^3.3.1":
   version "3.4.6"
@@ -65,14 +81,15 @@
   dependencies:
     tsickle "^0.2"
 
-"@manekinekko/angular-web-bluetooth@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.2.0.tgz#4953002253f367d1ecc378700f1627bb947c80dd"
+"@manekinekko/angular-web-bluetooth@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-0.3.1.tgz#f975698faa0381a921ef536a9c09d5fbded165e0"
   dependencies:
-    "@angular/common" "^2.4.1"
-    "@angular/compiler" "^2.4.1"
-    "@angular/core" "^2.4.1"
-    "@angular/platform-browser" "^2.4.1"
+    "@angular/common" "^2.4.7"
+    "@angular/compiler" "^2.4.7"
+    "@angular/core" "^2.4.7"
+    "@angular/platform-browser" "^2.4.7"
+    "@types/web-bluetooth" "^0.0.1"
     core-js "2.4.1"
     rimraf "^2.5.4"
     rxjs "^5.0.2"
@@ -107,6 +124,10 @@
 "@types/selenium-webdriver@2.53.37":
   version "2.53.37"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.37.tgz#34f743c20e53ae7100ede90870fde554df2447f8"
+
+"@types/web-bluetooth@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.1.tgz#60decc5f599bda4707086c8b90f3625265485c7c"
 
 abbrev@1, abbrev@1.0.x:
   version "1.0.9"

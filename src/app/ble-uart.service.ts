@@ -11,13 +11,7 @@ import 'rxjs/add/operator/scan';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/zip';
 
-import {
-  BluetoothCore,
-  BluetoothRemoteGATTServer,
-  BluetoothRemoteGATTService,
-  BluetoothRemoteGATTCharacteristic,
-  DataView
-} from '@manekinekko/angular-web-bluetooth';
+import { BluetoothCore } from '@manekinekko/angular-web-bluetooth';
 
 @Injectable()
 export class BleUartService {
@@ -44,9 +38,7 @@ export class BleUartService {
         this.gatt = gatt;
         return this.ble.getPrimaryService$(gatt, BleUartService.UART_SERVICE);
       })
-      .mergeMap((primaryService: BluetoothRemoteGATTService) => {
-        return this.connectRxTx(primaryService);
-      });
+      .mergeMap(primaryService => this.connectRxTx(primaryService));
   }
 
   disconnect() {
