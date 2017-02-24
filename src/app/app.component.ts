@@ -25,8 +25,10 @@ export class AppComponent {
     this.beaconVersion = '';
     this.beaconSerialNum = '';
     this.ngBeacon.connect()
-      .subscribe(() => {
+      .finally(() => {
         this.connecting = false;
+      })
+      .subscribe(() => {
         this.connected = true;
         this.ngBeacon.uart.receive$.subscribe(value => this.debugLog += value);
         this.ngBeacon.uart.lines$.subscribe(line => {
