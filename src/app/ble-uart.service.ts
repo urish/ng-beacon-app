@@ -54,7 +54,7 @@ export class BleUartService {
     const result = Observable.zip(Observable.from(chunks), this.writableSubject.filter(value => value))
       .mergeMap(([chunk, writable]) => {
         this.writableSubject.next(false);
-        return this.ble.writeValue$(this.rxCharacteristic, chunk)
+        return this.ble.writeValue$(this.rxCharacteristic, chunk);
       })
       .map(() => setTimeout(() => this.writableSubject.next(true), 10))
       .publish();
@@ -64,13 +64,13 @@ export class BleUartService {
 
   private connectRxTx(primaryService: BluetoothRemoteGATTService) {
     const txChar = this.ble.getCharacteristic$(primaryService, BleUartService.UART_TX).share();
- 
+
     this.receive$ = txChar.mergeMap(characteristic => this.ble.observeValue$(characteristic))
       .map(value => String.fromCharCode.apply(null, new Uint8Array(value.buffer)) as string);
 
-    let chars = this.receive$.concatMap(chunk => chunk.split(''));
+    const chars = this.receive$.concatMap(chunk => chunk.split(''));
     this.lines$ = chars.scan((acc, curr) => acc[acc.length - 1] === '\n' ? curr : acc + curr)
-      .filter(item => item.indexOf('\n') >= 0)
+      .filter(item => item.indexOf('\n') >= 0);
 
     return Observable.zip(
       // RX

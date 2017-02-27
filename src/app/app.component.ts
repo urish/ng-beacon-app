@@ -54,7 +54,7 @@ export class AppComponent {
   }
 
   reset() {
-    this.ngBeacon.uart.sendText("\nreset()\n");
+    this.ngBeacon.uart.sendText('\nreset()\n');
   }
 
   uploadEddystone() {

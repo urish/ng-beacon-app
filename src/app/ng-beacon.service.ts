@@ -23,7 +23,7 @@ export class NgBeaconService {
   }
 
   sendProgram(payload: string) {
-    let code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
+    const code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
     return this.uart.sendText(code);
   }
 
@@ -31,9 +31,9 @@ export class NgBeaconService {
     const advertiseParams = {
       name: params.name,
       interval: 250
-    }
+    };
 
-    url = url.replace(/^https?:\/\//i, '')
+    url = url.replace(/^https?:\/\//i, '');
 
     const advertiseData = this.bluetoothUtils.encodeAdvPacket([
       {
@@ -63,6 +63,7 @@ export class NgBeaconService {
       }
     ]);
 
+    // tslint:disable-next-line max-line-length
     this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});NRF.setScanResponse(${JSON.stringify(scanResponseData)});`);
   }
 
@@ -70,7 +71,7 @@ export class NgBeaconService {
     const advertiseParams = {
       name: params.name,
       interval: 250
-    }
+    };
 
     const advertiseData = this.bluetoothUtils.encodeAdvPacket([
       {
@@ -83,7 +84,6 @@ export class NgBeaconService {
       }
     ]);
 
-    // this.uart.sendText(`\nNRF.setAdvertising(${JSON.stringify(advertiseData)},${JSON.stringify(advertiseParams)});\n`);
     this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)},${JSON.stringify(advertiseParams)});\n${temperatureFirmware};`);
   }
 
@@ -91,7 +91,7 @@ export class NgBeaconService {
     const advertiseParams = {
       name: params.name,
       interval: 250
-    }
+    };
 
     const major = 10000;
     const minor = 1;
@@ -103,10 +103,10 @@ export class NgBeaconService {
           0x02, // type: iBeacon
           0x15, // size of remaining data
           'ng-beacon rocks!', // UUID - must be 16 bytes
-          major >> 8, major & 0xff,
-          minor >> 8, minor & 0xff,
+          major >> 8, major & 0xff,  // tslint:disable-line no-bitwise
+          minor >> 8, minor & 0xff,  // tslint:disable-line no-bitwise
           -59, // RSSI: 1 meter distance, in dBm
-        ], 
+        ],
     }]);
 
     const scanResponseData = this.bluetoothUtils.encodeAdvPacket([
@@ -120,6 +120,7 @@ export class NgBeaconService {
       }
     ]);
 
+    // tslint:disable-next-line max-line-length
     this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});NRF.setScanResponse(${JSON.stringify(scanResponseData)});`);
   }
 }

@@ -17,10 +17,10 @@ export interface IBLEPacketPart {
 @Injectable()
 export class BluetoothUtilsService {
   encodeAdvPacket(parts: IBLEPacketPart[]) {
-    let result = [];
-    for (let part of parts) {
-      let encoded = [0, part.type];
-      for (let element of part.data) {
+    const result = [];
+    for (const part of parts) {
+      const encoded = [0, part.type];
+      for (const element of part.data) {
         if (typeof element === 'string') {
           encoded.push(...element.split('').map(ch => ch.charCodeAt(0)));
         }
