@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build -sm -ec -bh /ng-beacon-app/ && gh-pages -d dist"
+    "deploy": "ng build -prod -sm -ec -bh /ng-beacon-app/ && gh-pages -d dist"
   },
   "private": true,
   "dependencies": {
