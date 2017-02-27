@@ -83,7 +83,7 @@ export class BleUartService {
       // TX
       txChar
     ).do(([rx, tx]) => {
-      this.writableSubject.next(true);
+      setTimeout(() => this.writableSubject.next(true), 0);
     });
   }
 }
