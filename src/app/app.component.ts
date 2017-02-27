@@ -57,6 +57,10 @@ export class AppComponent {
     this.ngBeacon.uart.sendText('\nreset()\n');
   }
 
+  get deviceName() {
+    return this.ngBeacon.deviceName;
+  }
+
   uploadEddystone() {
     this.ngBeacon.uploadEddystone({name: this.beaconName}, this.beaconUrl);
   }

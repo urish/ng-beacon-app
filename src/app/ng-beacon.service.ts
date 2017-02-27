@@ -22,6 +22,10 @@ export class NgBeaconService {
     this.uart.disconnect();
   }
 
+  get deviceName() {
+    return this.uart.gatt ? this.uart.gatt.device.name : null;
+  }
+
   sendProgram(payload: string) {
     const code = `\nE.setBootCode(${JSON.stringify(payload)}, true)\nload()\n`;
     return this.uart.sendText(code);
