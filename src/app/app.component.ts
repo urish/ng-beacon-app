@@ -76,4 +76,12 @@ export class AppComponent {
   readTemperature() {
     this.ngBeacon.uart.sendText(`ngbeacon.temperature()\n ngbeacon.humidity()\n`);
   }
+
+  readBattery() {
+    this.ngBeacon.uart.sendText(`NRF.getBattery()\n`);
+  }
+
+  readUptime() {
+    this.ngBeacon.uart.sendText(`getTime()\n`);
+  }
 }

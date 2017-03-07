@@ -23,8 +23,10 @@
       <p>Serial: {{beaconSerialNum}}</p>
     </md-card-content>
 
-    <button md-button (click)="readTemperature()">Read Temperature</button>
     <button md-raised-button (click)="disconnect()">Disconnect</button>
+    <button md-button (click)="readTemperature()">Read Temperature</button>
+    <button md-button (click)="readBattery()">Read Battery</button>
+    <button md-button (click)="readUptime()">Uptime</button>
   </md-card>
 
   <md-card>
