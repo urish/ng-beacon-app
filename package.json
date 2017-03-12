@@ -27,7 +27,7 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
     "text-loader": "^0.0.1",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.8.0"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0-rc.1",
