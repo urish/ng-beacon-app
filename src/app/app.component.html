@@ -20,13 +20,12 @@
     <md-card-content>
       <p>Device: {{deviceName}}</p>
       <p>Version: {{beaconVersion}}</p>
-      <p>Serial: {{beaconSerialNum}}</p>
+      <p>Battery: {{batteryVoltage|number:'1.2-2'}}V</p>
+      <p>Uptime: {{beaconUptime|amDuration:'seconds'}}</p>
     </md-card-content>
 
     <button md-raised-button (click)="disconnect()">Disconnect</button>
     <button md-button (click)="readTemperature()">Read Temperature</button>
-    <button md-button (click)="readBattery()">Read Battery</button>
-    <button md-button (click)="readUptime()">Uptime</button>
   </md-card>
 
   <md-card>

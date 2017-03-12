@@ -13,7 +13,8 @@ export class AppComponent {
   connecting = false;
   connected = false;
   beaconVersion = '';
-  beaconSerialNum = '';
+  batteryVoltage = 0;
+  beaconUptime = 0;
   beaconName = 'ng-beacon';
   beaconUrl = 'ngbeacon.io';
   debugLog = '';
@@ -23,7 +24,6 @@ export class AppComponent {
   connect() {
     this.connecting = true;
     this.beaconVersion = '';
-    this.beaconSerialNum = '';
     this.ngBeacon.connect()
       .finally(() => {
         this.connecting = false;
@@ -32,14 +32,14 @@ export class AppComponent {
         this.connected = true;
         this.ngBeacon.uart.receive$.subscribe(value => this.debugLog += value);
         this.ngBeacon.uart.lines$.subscribe(line => {
-          if (!this.beaconVersion && line.indexOf('"VERSION"') >= 0) {
-            this.beaconVersion = line.split('"')[3];
-          }
-          if (!this.beaconSerialNum && line.indexOf('"SERIAL"') >= 0) {
-            this.beaconSerialNum = line.split('"')[3];
+          if (line.startsWith('["~$",')) {
+            const [_, battery, uptime, version] = JSON.parse(line);
+            this.beaconVersion = version;
+            this.batteryVoltage = battery;
+            this.beaconUptime = uptime;
           }
         });
-        this.ngBeacon.uart.sendText('\nprocess.env\n');
+        this.ngBeacon.uart.sendText(`\nprint(JSON.stringify(['~$',NRF.getBattery(),getTime()|0,process.env.VERSION]))\n`);
       });
   }
 
@@ -75,13 +75,5 @@ export class AppComponent {
 
   readTemperature() {
     this.ngBeacon.uart.sendText(`ngbeacon.temperature()\n ngbeacon.humidity()\n`);
-  }
-
-  readBattery() {
-    this.ngBeacon.uart.sendText(`NRF.getBattery()\n`);
-  }
-
-  readUptime() {
-    this.ngBeacon.uart.sendText(`getTime()\n`);
   }
 }
