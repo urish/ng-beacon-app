@@ -14,7 +14,7 @@ export class AppComponent {
   connected = false;
   beaconVersion = '';
   batteryVoltage = 0;
-  beaconUptime = 0;
+  beaconUptime: number = null;
   beaconName = 'ng-beacon';
   beaconUrl = 'ngbeacon.io';
   debugLog = '';
@@ -24,6 +24,8 @@ export class AppComponent {
   connect() {
     this.connecting = true;
     this.beaconVersion = '';
+    this.batteryVoltage = 0;
+    this.beaconUptime = null;
     this.ngBeacon.connect()
       .finally(() => {
         this.connecting = false;
