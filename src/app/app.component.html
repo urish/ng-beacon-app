@@ -16,7 +16,7 @@
 <div *ngIf="connected">
   <md-card>
     <md-card-title><md-icon>done</md-icon> Connected</md-card-title>
-  
+
     <md-card-content>
       <p>Device: {{deviceName}}</p>
       <p>Version: {{beaconVersion}}</p>
@@ -42,7 +42,7 @@
       </div>
 
       <button md-button (click)="reset()">Reset</button>
-      <button md-button (click)="uploadEddystone()">Eddystone Beacon</button>
+      <button md-button (click)="uploadEddystone()">Physical Web Beacon</button>
       <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
       <button md-button (click)="uploadIBeacon()">iBeacon</button>
     </md-card-content>
