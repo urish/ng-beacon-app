@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 import { NgBeaconService } from './ng-beacon.service';
 import { BluetoothUtilsService } from './bluetooth-utils.service';
@@ -19,30 +19,36 @@ export class AppComponent {
   beaconUrl = 'ngbeacon.io';
   debugLog = '';
 
-  constructor(private ngBeacon: NgBeaconService, private bluetoothUtils: BluetoothUtilsService) {}
+  constructor(
+    private ngBeacon: NgBeaconService,
+    private bluetoothUtils: BluetoothUtilsService,
+    private cdRef: ChangeDetectorRef) { }
 
-  connect() {
+  async connect() {
     this.connecting = true;
     this.beaconVersion = '';
     this.batteryVoltage = 0;
     this.beaconUptime = null;
-    this.ngBeacon.connect()
-      .finally(() => {
-        this.connecting = false;
-      })
-      .subscribe(() => {
-        this.connected = true;
-        this.ngBeacon.uart.receive$.subscribe(value => this.debugLog += value);
-        this.ngBeacon.uart.lines$.subscribe(line => {
-          if (line.startsWith('["~$",')) {
-            const [_, battery, uptime, version] = JSON.parse(line);
-            this.beaconVersion = version;
-            this.batteryVoltage = battery;
-            this.beaconUptime = uptime;
-          }
-        });
-        this.ngBeacon.uart.sendText(`\nprint(JSON.stringify(['~$',NRF.getBattery(),getTime()|0,process.env.VERSION]))\n`);
+    try {
+      await this.ngBeacon.connect();
+      this.connected = true;
+      this.ngBeacon.uart.receive$.subscribe(value => {
+        this.debugLog += value;
+        this.cdRef.detectChanges();
       });
+      this.ngBeacon.uart.lines$.subscribe(line => {
+        if (line.startsWith('["~$",')) {
+          const [_, battery, uptime, version] = JSON.parse(line);
+          this.beaconVersion = version;
+          this.batteryVoltage = battery;
+          this.beaconUptime = uptime;
+        }
+        this.cdRef.detectChanges();
+      });
+      this.ngBeacon.uart.sendText(`\nprint(JSON.stringify(['~$',NRF.getBattery(),getTime()|0,process.env.VERSION]))\n`);
+    } finally {
+      this.connecting = false;
+    }
   }
 
   disconnect() {
@@ -64,15 +70,15 @@ export class AppComponent {
   }
 
   uploadEddystone() {
-    this.ngBeacon.uploadEddystone({name: this.beaconName}, this.beaconUrl);
+    this.ngBeacon.uploadEddystone({ name: this.beaconName }, this.beaconUrl);
   }
 
   uploadTemperature() {
-    this.ngBeacon.uploadTemperature({name: this.beaconName});
+    this.ngBeacon.uploadTemperature({ name: this.beaconName });
   }
 
   uploadIBeacon() {
-    this.ngBeacon.uploadIBeacon({name: this.beaconName});
+    this.ngBeacon.uploadIBeacon({ name: this.beaconName });
   }
 
   readTemperature() {
