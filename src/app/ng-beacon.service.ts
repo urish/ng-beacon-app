@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { BleUartService } from './ble-uart.service';
 import { BluetoothUtilsService, GapAdType } from './bluetooth-utils.service';
 
-const temperatureFirmware = require('text-loader!../firmware/temperature.min.js') as string;
-
 export class BeaconParams {
   name: string;
 }
@@ -69,26 +67,6 @@ export class NgBeaconService {
 
     // tslint:disable-next-line max-line-length
     this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)}, ${JSON.stringify(advertiseParams)});NRF.setScanResponse(${JSON.stringify(scanResponseData)});`);
-  }
-
-  uploadTemperature(params: BeaconParams) {
-    const advertiseParams = {
-      name: params.name,
-      interval: 250
-    };
-
-    const advertiseData = this.bluetoothUtils.encodeAdvPacket([
-      {
-        type: GapAdType.CompleteListOf16BitServiceUuids,
-        data: [0x1a, 0x18], // Environment sensing service id
-      },
-      {
-        type: GapAdType.CompleteLocalName,
-        data: [params.name]
-      }
-    ]);
-
-    this.sendProgram(`NRF.setAdvertising(${JSON.stringify(advertiseData)},${JSON.stringify(advertiseParams)});\n${temperatureFirmware};`);
   }
 
   uploadIBeacon(params: BeaconParams) {

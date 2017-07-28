@@ -10,3 +10,17 @@ md-toolbar a:visited {
 md-card {
     margin-top: 10px;
 }
+
+.beacon-setup-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.beacon-type-radio {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.radio-item {
+  margin-bottom: 12px;
+}

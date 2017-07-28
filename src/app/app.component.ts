@@ -3,6 +3,8 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { NgBeaconService } from './ng-beacon.service';
 import { BluetoothUtilsService } from './bluetooth-utils.service';
 
+type BeaconType = 'eddystone' | 'ibeacon';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,6 +18,7 @@ export class AppComponent {
   batteryVoltage = 0;
   beaconUptime: number = null;
   beaconName = 'ng-beacon';
+  beaconType: BeaconType = 'eddystone';
   beaconUrl = 'ngbeacon.io';
   debugLog = '';
 
@@ -61,27 +64,21 @@ export class AppComponent {
     this.debugLog = '';
   }
 
-  reset() {
-    this.ngBeacon.uart.sendText('\nreset()\n');
-  }
-
   get deviceName() {
     return this.ngBeacon.deviceName;
   }
 
-  uploadEddystone() {
-    this.ngBeacon.uploadEddystone({ name: this.beaconName }, this.beaconUrl);
+  configureBeacon() {
+    switch (this.beaconType) {
+      case 'eddystone':
+        return this.ngBeacon.uploadEddystone({ name: this.beaconName }, this.beaconUrl);
+
+      case 'ibeacon':
+        return this.ngBeacon.uploadIBeacon({ name: this.beaconName });
+    }
   }
 
-  uploadTemperature() {
-    this.ngBeacon.uploadTemperature({ name: this.beaconName });
-  }
-
-  uploadIBeacon() {
-    this.ngBeacon.uploadIBeacon({ name: this.beaconName });
-  }
-
-  readTemperature() {
-    this.ngBeacon.uart.sendText(`ngbeacon.temperature()\n ngbeacon.humidity()\n`);
+  toggleLed() {
+    this.ngBeacon.uart.sendText(`LED1.toggle()\n`);
   }
 }

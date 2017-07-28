@@ -25,26 +25,25 @@
     </md-card-content>
 
     <button md-raised-button (click)="disconnect()">Disconnect</button>
-    <button md-button (click)="readTemperature()">Read Temperature</button>
+    <button md-button (click)="toggleLed()">Toggle LED</button>
   </md-card>
 
   <md-card>
     <md-card-title>Configure Beacon</md-card-title>
 
-    <md-card-content>
-      <div>
-        <md-input-container>
-          <input mdInput placeholder="Beacon name" [(ngModel)]="beaconName" maxlength="10" />
-        </md-input-container>
-        <md-input-container>
-          <input mdInput placeholder="Physical Web URL" [(ngModel)]="beaconUrl" maxlength="20" />
-        </md-input-container>
-      </div>
+    <md-card-content class="beacon-setup-card">
+      <md-input-container>
+        <input mdInput placeholder="Beacon name" [(ngModel)]="beaconName" maxlength="10" />
+      </md-input-container>
+      <md-radio-group [(ngModel)]="beaconType" class="beacon-type-radio">
+        <md-radio-button value="eddystone" class="radio-item">Physical Web (Eddystone URL)</md-radio-button>
+        <md-radio-button value="ibeacon" class="radio-item">iBeacon</md-radio-button>
+      </md-radio-group>
+      <md-input-container *ngIf="beaconType == 'eddystone'">
+        <input mdInput placeholder="Advertised URL" [(ngModel)]="beaconUrl" maxlength="20" />
+      </md-input-container>
 
-      <button md-button (click)="reset()">Reset</button>
-      <button md-button (click)="uploadEddystone()">Physical Web Beacon</button>
-      <button md-button (click)="uploadTemperature()">Temperature Sensor</button>
-      <button md-button (click)="uploadIBeacon()">iBeacon</button>
+      <button md-raised-button color="accent" (click)="configureBeacon()">Configure</button>
     </md-card-content>
   </md-card>
 
