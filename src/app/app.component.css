@@ -24,3 +24,8 @@ md-card {
 .radio-item {
   margin-bottom: 12px;
 }
+
+.device-console-card {
+  display: flex;
+  flex-direction: column;
+}

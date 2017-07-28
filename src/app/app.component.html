@@ -15,7 +15,8 @@
 
 <div *ngIf="connected">
   <md-card>
-    <md-card-title><md-icon>done</md-icon> Connected</md-card-title>
+    <md-card-title>
+      <md-icon>done</md-icon> Connected</md-card-title>
 
     <md-card-content>
       <p>Device: {{deviceName}}</p>
@@ -48,12 +49,18 @@
   </md-card>
 
   <md-card>
-    <md-card-title>Debug Log</md-card-title>
-    <md-card-content>
+    <md-card-title>Device Console</md-card-title>
+    <md-card-content class="device-console-card">
       <pre>{{debugLog}}</pre>
+      <div>
+        <button md-icon-button (click)="clearLog()"><md-icon>delete</md-icon></button>
+      </div>
+      <md-input-container>
+        <input mdInput [(ngModel)]="commandLine" (keydown)="commandInputKeydown($event)" />
+        <button mdSuffix md-icon-button (click)="sendCommand()">
+        <md-icon>send</md-icon>
+      </button>
+      </md-input-container>
     </md-card-content>
-    <md-card-actions>
-      <button md-button (click)="clearLog()"><md-icon>delete</md-icon></button>
-    </md-card-actions>
   </md-card>
 </div>

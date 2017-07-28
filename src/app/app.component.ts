@@ -21,6 +21,7 @@ export class AppComponent {
   beaconType: BeaconType = 'eddystone';
   beaconUrl = 'ngbeacon.io';
   debugLog = '';
+  commandLine = 'console.log("hi!");';
 
   constructor(
     private ngBeacon: NgBeaconService,
@@ -80,5 +81,16 @@ export class AppComponent {
 
   toggleLed() {
     this.ngBeacon.uart.sendText(`LED1.toggle()\n`);
+  }
+
+  sendCommand() {
+    this.ngBeacon.uart.sendText(this.commandLine + '\n');
+    this.commandLine = '';
+  }
+
+  commandInputKeydown(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.sendCommand();
+    }
   }
 }
