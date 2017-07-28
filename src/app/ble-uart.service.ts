@@ -9,6 +9,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/zip';
