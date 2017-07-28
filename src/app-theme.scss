@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$ngbeacon-app-primary: mat-palette($mat-red, 700, A400, A700);
+$ngbeacon-app-accent:  mat-palette($mat-indigo, A200, A100, A400);
+$ngbeacon-app-warn:    mat-palette($mat-red);
+
+$ngbeacon-app-theme: mat-light-theme($ngbeacon-app-primary, $ngbeacon-app-accent, $ngbeacon-app-warn);
+
+@include angular-material-theme($ngbeacon-app-theme);
