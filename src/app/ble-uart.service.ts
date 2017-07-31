@@ -23,6 +23,7 @@ export class BleUartService {
   receive$: Observable<string>;
   lines$: Observable<string>;
   writable$: Observable<boolean>;
+  disconnected$: Observable<void>;
   gatt: BluetoothRemoteGATTServer;
 
   private rxCharacteristic: BluetoothRemoteGATTCharacteristic;
@@ -35,6 +36,7 @@ export class BleUartService {
   async connect() {
     const device = await navigator.bluetooth.requestDevice({ filters: [{ services: [BleUartService.UART_SERVICE] }] });
     this.gatt = await device.gatt.connect();
+    this.disconnected$ = await Observable.fromEvent(device, 'gattserverdisconnected').map(() => null);
     const uartService = await this.gatt.getPrimaryService(BleUartService.UART_SERVICE);
     await this.connectRxTx(uartService);
   }
@@ -65,7 +67,7 @@ export class BleUartService {
     const txChar = await primaryService.getCharacteristic(BleUartService.UART_TX);
     this.receive$ = Observable.fromEvent(txChar, 'characteristicvaluechanged')
       .map(value => String.fromCharCode.apply(null, new Uint8Array(txChar.value.buffer)))
-      .takeUntil(Observable.fromEvent(this.gatt.device, 'gattserverdisconnected'))
+      .takeUntil(this.disconnected$)
       .finally(() => txChar.stopNotifications())
       .share();
     await txChar.startNotifications();

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { NgBeaconService } from './ng-beacon.service';
 import { BluetoothUtilsService } from './bluetooth-utils.service';
@@ -10,7 +10,7 @@ type BeaconType = 'eddystone' | 'ibeacon';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   connecting = false;
   connected = false;
@@ -28,7 +28,15 @@ export class AppComponent {
     private bluetoothUtils: BluetoothUtilsService,
     private cdRef: ChangeDetectorRef) { }
 
+  ngOnInit() {
+    this.ngBeacon.disconnected$.subscribe(() => {
+      this.connected = false;
+      this.cdRef.detectChanges();
+    });
+  }
+
   async connect() {
+    this.clearLog();
     this.connecting = true;
     this.beaconVersion = '';
     this.batteryVoltage = 0;

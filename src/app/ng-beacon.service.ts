@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 import { BleUartService } from './ble-uart.service';
 import { BluetoothUtilsService, GapAdType } from './bluetooth-utils.service';
@@ -9,11 +10,15 @@ export class BeaconParams {
 
 @Injectable()
 export class NgBeaconService {
+  disconnected$ = new Subject<void>();
+
   constructor(public uart: BleUartService, private bluetoothUtils: BluetoothUtilsService) {
   }
 
   connect() {
-    return this.uart.connect();
+    return this.uart.connect().then(() => {
+      this.uart.disconnected$.subscribe(this.disconnected$);
+    });
   }
 
   disconnect() {
